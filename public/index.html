@@ -1,0 +1,36 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <link rel='stylesheet' type="text/css" href='beauter.css' >
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <div class = 'pages'>
+      <div class = 'login page'>
+        <div class='jumbo _black'>
+          <h3>Give me your action code:</h3>
+          <input class = 'usernameInput' type = 'text' maxlength = "14">
+        </div>
+      </div>
+      <div class = 'chat page'>
+        <div class = 'messageArea'>
+          <div class= "messages">
+          </div>
+        </div>
+        <input class="inputMessage" placeholder="Type here...">
+      </div>
+    </div>
+    <<!-- ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form> -->
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
