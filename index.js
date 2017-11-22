@@ -36,7 +36,7 @@ io.on('connection', function(socket){
 		}
 	});
 
-	socket.on('user leave',function(){
+	socket.on('disconnect',function(){
 		if(isNew){
 			return;
 		}

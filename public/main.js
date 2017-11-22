@@ -43,7 +43,7 @@ $(function(){
   }
 
   function AddNewMessage(username,msg,time){
-    time = moment(time).local().format("(MM.DD)HH:mm:ss");
+    time = moment(time).local().format("HH:mm:ss");
 
     var $timeDiv = $('<span class="chattime"/>')
       .text(time);
