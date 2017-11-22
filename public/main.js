@@ -17,6 +17,10 @@ $(function(){
   var $currentInput = $usernameInput.focus();
   var $messages = $('.messages');
 
+  function log(logMsg){
+    var $ele = $('<span class="log"/>').text(logMsg)
+    AddMessageElement($('<div/>').append($ele))
+  }
   // Sets the client's username
   function setUsername () {
     username = cleanInput($usernameInput.val().trim());
@@ -33,7 +37,9 @@ $(function(){
 
   function sendMessage(){
     message = cleanInput($inputMessage.val().trim());
-    socket.emit('message',message);
+    if(message){
+      socket.emit('message',message);
+    }
   }
 
   function AddNewMessage(username,msg,time){
@@ -55,6 +61,7 @@ $(function(){
   function AddMessageElement(ele){
     var $ele = $(ele);
     $messages.append($ele);
+    $messages[0].scrollTop = $messages[0].scrollHeight;
   }
 
   // Prevents input from having injected markup
@@ -90,9 +97,20 @@ $(function(){
     }
   });
 
-
   socket.on('message',function(data){
   	// console.log("Received")
     AddNewMessage(data.username,data.msg,data.time);
   })
+
+  socket.on('new user',function(data){
+    var time = moment(data.time).local().format("HH:mm:ss");
+    log(data.username+" joined the chatroom at "+time+'.')
+    log(data.UserCount+' people in the room now.')
+  });
+
+  socket.on('user leave',function(data){
+    var time = moment(data.time).local().format("HH:mm:ss");
+    log(data.username+" leave the chatroom at "+time+'.')
+    log(data.UserCount+' people in the room now.')
+  });
 });

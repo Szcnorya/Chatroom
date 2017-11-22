@@ -11,7 +11,6 @@ var UserCount = 0
 
 //New connection comes
 io.on('connection', function(socket){
-	// currentTime = moment().utc().local().format("(MM.DD)HH:mm:ss")
 	isNew = true;
 	socket.on('message',function(msgbody){
 		io.emit('message',{
@@ -23,11 +22,13 @@ io.on('connection', function(socket){
 
 	socket.on('new user',function(username){
 		if(isNew){
+			isNew = false
 			socket.username = username;
 			UserCount += 1;
 			io.emit("new user",{
 				username : socket.username,
-				time : new Date().getTime()
+				time : new Date().getTime(),
+				UserCount : UserCount
 			});
 		}
 		else{
@@ -43,14 +44,16 @@ io.on('connection', function(socket){
 			UserCount -= 1;
 			io.emit('user leave',{
 				username : socket.username,
-				time : new Date().getTime()
+				time : new Date().getTime(),
+				UserCount : UserCount
 			});
 		}
 	});
 	}
-)
+);
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+
+http.listen(8889, function(){
+  console.log('listening on *:8889');
 });
 
